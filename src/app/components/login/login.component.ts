@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.showSpinner = true;
      this.authService.loginUser(this.loginForm.value).subscribe(data=>{
          this.tokenService.SetToken(data.token);
+        console.log("logs");
        //this.cookieService.set('chat-token',token );
         this.loginForm.reset();
         setTimeout(() => {

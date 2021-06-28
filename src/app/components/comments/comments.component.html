@@ -15,7 +15,7 @@
                     formControlName="comment"
                     class="materialize-textarea"
                   ></textarea>
-                  <button class="btn postBtn">
+                  <button class="btn postBtn" [disabled]="!CommentForm.valid">
                     Add Comment
                   </button>
                 </div>

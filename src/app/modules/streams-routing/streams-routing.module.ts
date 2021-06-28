@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { from } from 'rxjs';
 import { CommentsComponent } from 'src/app/components/comments/comments.component';
+import { PeopleComponent } from 'src/app/components/people/people.component';
 import { StreamsComponent } from 'src/app/components/streams/streams.component';
 import { AuthGuard } from 'src/app/services/auth.guard';
 
@@ -12,6 +13,9 @@ const routes: Routes = [
   },
   {
     path: 'post/:id', component: CommentsComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'people', component: PeopleComponent, canActivate: [AuthGuard]
   }
 ];
 

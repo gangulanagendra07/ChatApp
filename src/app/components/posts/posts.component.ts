@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
-import { TokenService} from '../../services/token.service'
+import { TokenService } from '../../services/token.service'
 import * as moment from 'moment';
 // import io from 'socket.io-client'
 import * as _ from "lodash";
@@ -34,22 +34,26 @@ export class PostsComponent implements OnInit {
   AllPosts() {
     this.postService.getAllPosts().subscribe(postsResult => {
       this.posts = postsResult.posts;
-      console.log(this.posts);
-    })
+    }, err => {
+      if (err.error.token) {
+        this.tokenService.DeleteToken();
+        this.router.navigate([""]);
+      }
+    });
   }
 
-  LikePost(post){
-      this.postService.addLike(post).subscribe(posts =>{
-        // console.log("LikePost", posts);
-      });
+  LikePost(post) {
+    this.postService.addLike(post).subscribe(posts => {
+      // console.log("LikePost", posts);
+    });
   }
 
-  CheckInLikesPost(arr, username){
-      return _.some(arr, {username: username});
+  CheckInLikesPost(arr, username) {
+    return _.some(arr, { username: username });
   }
 
-  OpenCommentBox(post){
-      this.router.navigate(['post', post._id]);
+  OpenCommentBox(post) {
+    this.router.navigate(['post', post._id]);
   }
 
   TimeForNow(time) {

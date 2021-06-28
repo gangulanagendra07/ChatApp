@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommentsComponent } from 'src/app/components/comments/comments.component'
 import { RouterModule } from '@angular/router';
 import { PeopleComponent} from 'src/app/components/people/people.component'
+import { UsersService } from 'src/app/services/users.service';
 
 
 
@@ -27,6 +28,6 @@ import { PeopleComponent} from 'src/app/components/people/people.component'
   exports: [
     StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent
   ],
-  providers: [TokenService, PostService]
+  providers: [TokenService, PostService, UsersService]
 })
 export class StreamsModule { }

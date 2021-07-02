@@ -11,10 +11,11 @@
       <form class="col s12" [formGroup]= 'loginForm' novalidate (ngSubmit)='loginUser()'>
        <div class="row">
         <div class="input-field col s12">
-          <input id="username"  placeholder="username" formControlName='username'>
+          <!-- <input id="username"  placeholder="username" formControlName='username'> -->
+          <input placeholder="Username" id="username" type="text" formControlName='username'>
           <label for="username">Username</label>
           <span class="error" *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].touched">
-            Email is required
+            Username is required
           </span>
         </div>
        </div>

@@ -11,8 +11,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommentsComponent } from 'src/app/components/comments/comments.component'
 import { RouterModule } from '@angular/router';
-import { PeopleComponent} from 'src/app/components/people/people.component'
-import { FollowingComponent} from 'src/app/components/following/following.component';
+import { PeopleComponent } from 'src/app/components/people/people.component'
+import { FollowingComponent } from 'src/app/components/following/following.component';
+import { FollowersComponent } from 'src/app/components/followers/followers.component';
+import { NotificationComponent } from 'src/app/components/notification/notification.component'
 import { UsersService } from 'src/app/services/users.service';
 
 
@@ -24,10 +26,10 @@ import { UsersService } from 'src/app/services/users.service';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule
   ],
-  declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent],
+  declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent],
 
   exports: [
-    StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent
+    StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent
   ],
   providers: [TokenService, PostService, UsersService]
 })

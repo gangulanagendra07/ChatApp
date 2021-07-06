@@ -22,15 +22,22 @@ export class UsersService {
   }
 
   getUserByName(username): Observable<any> {
-    return this.http.get(`${BASEURL}/getusers/${username}`);
+    return this.http.get(`${BASEURL}/getusername/${username}`);
   }
 
   followUser(userFollowed): Observable<any> {
-    return this.http.post(`${BASEURLFRIENDS}/friends`, { userFollowed });
+    return this.http.post(`${BASEURLFRIENDS}/friendship`, { userFollowed });
   }
 
   unfollowUser(userFollowed): Observable<any> {
     return this.http.post(`${BASEURLFRIENDS}/unfriends`, { userFollowed });
+  }
+
+  MarkNotification(id, deleteVal?): Observable<any> {
+    return this.http.post(`${BASEURLFRIENDS}/marknotification/${id}`, {
+      id,
+      deleteVal
+    });
   }
 
 }

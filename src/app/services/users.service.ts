@@ -40,4 +40,9 @@ export class UsersService {
     });
   }
 
+  MarkAllAsRead(): Observable<any> {
+    return this.http.post(`${BASEURLFRIENDS}/markall`, {
+        all: true
+    });
+  }
 }

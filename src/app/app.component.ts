@@ -10,20 +10,28 @@ import { TokenService } from './services/token.service';
 })
 export class AppComponent implements OnInit {
 
+  // getTime: number;
 
+  constructor(private router: Router, private tokenService: TokenService, private cookieService: CookieService) { }
 
-  constructor(private router: Router, private tokenService: TokenService, private cookieService: CookieService){}
-
-  ngOnInit(){
+  ngOnInit() {
 
     const token = this.tokenService.GetToken();
-     //console.log("Main", token);
-   // const token = this.cookieService.get('chat-token');
+    //console.log("Main", token);
+    // const token = this.cookieService.get('chat-token');
+    // var settime = localStorage.getItem("SetTime");
+    // let nowdate = Date.now();
 
-    if(token != null){
+    // if (nowdate - parseInt(settime) >= 10000) {
+    //   this.tokenService.DeleteToken();
+    //   localStorage.clear();
+    // }
+    if (token != null) {
       this.router.navigate(['streams'])
-    }else{
-        this.router.navigate(['']);
+    } else {
+      this.tokenService.DeleteToken();
+      localStorage.clear();
+      this.router.navigate(['']);
     }
 
   }

@@ -12,39 +12,42 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm : FormGroup;
+  loginForm: FormGroup;
   errorMessage: string;
   showSpinner = false;
 
-  constructor(private fb : FormBuilder, private authService: AuthService, private router: Router, private tokenService: TokenService, private cookieService: CookieService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private tokenService: TokenService, private cookieService: CookieService) { }
 
   ngOnInit() {
-   this.init();
+    this.init();
   }
 
-  init(){
+  init() {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     })
   }
 
-  loginUser(){
+  loginUser() {
     this.showSpinner = true;
-     this.authService.loginUser(this.loginForm.value).subscribe(data=>{
-         this.tokenService.SetToken(data.token);
-       //this.cookieService.set('chat-token',token );
-        this.loginForm.reset();
-        setTimeout(() => {
-            this.router.navigate(['streams']);
-        }, 2000);
-     },
-     err=>{
-       this.showSpinner = false;
-       if(err.error.message){
-         this.errorMessage = err.error.message;
-       }
-     });
+    this.authService.loginUser(this.loginForm.value).subscribe(data => {
+      this.tokenService.SetToken(data.token);
+      //this.cookieService.set('chat-token',token );
+      // const settime : any = Date.now();
+      // localStorage.setItem("SetTime", settime);
+      this.loginForm.reset();
+      setTimeout(() => {
+        this.router.navigate(['streams']);
+      }, 2000);
+
+    },
+      err => {
+        this.showSpinner = false;
+        if (err.error.message) {
+          this.errorMessage = err.error.message;
+        }
+      });
   }
 
 }

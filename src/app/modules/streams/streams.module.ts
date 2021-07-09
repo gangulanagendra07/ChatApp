@@ -16,6 +16,8 @@ import { FollowingComponent } from 'src/app/components/following/following.compo
 import { FollowersComponent } from 'src/app/components/followers/followers.component';
 import { NotificationComponent } from 'src/app/components/notification/notification.component'
 import { UsersService } from 'src/app/services/users.service';
+import { TopStreamsComponent } from 'src/app/components/top-streams/top-streams.component';
+
 
 
 
@@ -26,10 +28,10 @@ import { UsersService } from 'src/app/services/users.service';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule
   ],
-  declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent],
+  declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent, TopStreamsComponent],
 
   exports: [
-    StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent
+    StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent, TopStreamsComponent
   ],
   providers: [TokenService, PostService, UsersService]
 })

@@ -8,6 +8,7 @@ import { PeopleComponent } from 'src/app/components/people/people.component';
 import { StreamsComponent } from 'src/app/components/streams/streams.component';
 import { NotificationComponent } from 'src/app/components/notification/notification.component'
 import { AuthGuard } from 'src/app/services/auth.guard';
+import { ChatComponent } from 'src/app/components/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,9 @@ const routes: Routes = [
   ,
   {
     path: 'notifications', component: NotificationComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'chat/:name', component: ChatComponent, canActivate: [AuthGuard]
   }
 ];
 

@@ -17,6 +17,8 @@ import { FollowersComponent } from 'src/app/components/followers/followers.compo
 import { NotificationComponent } from 'src/app/components/notification/notification.component'
 import { UsersService } from 'src/app/services/users.service';
 import { TopStreamsComponent } from 'src/app/components/top-streams/top-streams.component';
+import { ChatComponent } from 'src/app/components/chat/chat.component';
+import { MessageComponent } from 'src/app/components/message/message.component';
 
 
 
@@ -28,11 +30,10 @@ import { TopStreamsComponent } from 'src/app/components/top-streams/top-streams.
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule
   ],
-  declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent, TopStreamsComponent],
+  declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent, TopStreamsComponent, ChatComponent, MessageComponent],
 
   exports: [
-    StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent, TopStreamsComponent
-  ],
+    StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent, TopStreamsComponent, ChatComponent, MessageComponent],
   providers: [TokenService, PostService, UsersService]
 })
 export class StreamsModule { }

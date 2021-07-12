@@ -23,8 +23,8 @@
               <p>Country</p>
               <button class="btn"  *ngIf="!CheckInArray(userArr, user._id )" (click)="FollowUser(user)">Follow</button>
               <button class="btn disabled following" *ngIf="CheckInArray(userArr, user._id )">Following</button>
-              <a class="secondary-content">
-                <i class="material-icons">Chat</i>
+              <a class="secondary-content"[routerLink]="['/chat', user.username]" >
+                <i class="material-icons">chat</i>
               </a>
             </div>
           </div>

@@ -31,7 +31,7 @@ export class SideComponent implements OnInit {
 
     this.userService.getById(this.user._id).subscribe(user => {
       this.userData = user.result;
-      console.log("Side", this.userData);
+      // console.log("Side", this.userData);
     });
 
   }

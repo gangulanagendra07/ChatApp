@@ -41,7 +41,7 @@ export class ToolbarComponent implements OnInit {
     this.userService.getById(this.user._id).subscribe(data => {
       this.notifications = data.result.notifications.reverse();
       const value = _.filter(this.notifications, ['read', false]);
-      console.log(value);
+      // console.log(value);
       this.count = value;
     }, err =>{
       if (err.error.token) {
@@ -60,7 +60,7 @@ export class ToolbarComponent implements OnInit {
 
     this.userService.MarkAllAsRead().subscribe(data => {
       // this.socket.emit('refresh', {});
-      console.log(data);
+      // console.log(data);
     });
   }
 

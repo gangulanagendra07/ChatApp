@@ -25,7 +25,6 @@ export class PeopleComponent implements OnInit {
     this.loggedInUser = this.tokenService.GetPayload();
     this.GetUsers();
     this.GetUser();
-
     // this.socket.on('refreshPage', () =>{
     //   this.GetUsers();
     //   this.GetUser();

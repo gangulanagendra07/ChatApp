@@ -29,6 +29,7 @@ import { MessageService } from 'src/app/services/message.service';
 
 
   imports: [
+
     CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule
   ],
   declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostformComponent, PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationComponent, TopStreamsComponent, ChatComponent, MessageComponent],

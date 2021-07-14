@@ -29,6 +29,7 @@
     "materialize": "^1.0.0",
     "materialize-css": "^1.0.0-rc.2",
     "moment": "^2.29.1",
+    "ngx-auto-scroll": "^1.1.0",
     "ngx-cookie-service": "^10.1.1",
     "prettier": "^2.0.5",
     "rxjs": "~6.5.4",

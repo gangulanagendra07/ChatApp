@@ -11,7 +11,7 @@ import { from } from 'rxjs';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/token-interceptor';
 import { TokenService } from './services/token.service';
-import {NgxAutoScrollModule} from 'ngx-auto-scroll'
+// import {NgxAutoScrollModule} from 'ngx-auto-scroll';
 
 
 
@@ -29,7 +29,7 @@ import {NgxAutoScrollModule} from 'ngx-auto-scroll'
   imports: [
     BrowserModule,
     AuthModule,
-    NgxAutoScrollModule,
+    // NgxAutoScrollModule,
     AuthRoutingModule,
     StreamsModule,
     StreamsRoutingModule

@@ -11,7 +11,7 @@
           </div>
           <div class="row">
             <div class="col s10 nameCol">
-              <span>{{receiver}}</span>
+              <span>{{ receiver }}</span>
               <p class="isOnline">Online</p>
             </div>
           </div>
@@ -19,22 +19,38 @@
       </div>
     </div>
   </div>
-  <div class="col s12 rowDiv" ngx-auto-scroll lock-y-offset="10" observe-attributes>
+  <!-- Addding following div for scroll  <div
+  class="col s12 rowDiv"
+  ngx-auto-scroll
+  lock-y-offset="10"
+  observe-attributes
+> -->
+  <div class="col s12 rowDiv">
     <div class="row">
       <div class="col s12">
         <div class="message-wrapper" *ngFor="let message of messagesArray">
-          <div class="left" *ngIf="user.username !== receiver && user.username !== message.sendername">
+          <div
+            class="left"
+            *ngIf="
+              user.username !== receiver && user.username !== message.sendername
+            "
+          >
             <div class="chat-bubble left slide-left">
-              <div class="message">{{message.body}}</div>
+              <div class="message">{{ message.body }}</div>
             </div>
           </div>
           <div class="right" *ngIf="user.username === message.sendername">
             <div class="chat-bubble right slide-right">
-              <div class="message">{{message.body}}</div>
+              <div class="message">{{ message.body }}</div>
             </div>
           </div>
           <div class="cf"></div>
         </div>
+        <!-- <div class="left">
+          <div class="chat-bubble left slide-left">
+            <div class="message">{{ receiver }} is typing...</div>
+          </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -45,7 +61,9 @@
           <form (ngSubmit)="sendMessage()">
             <div class="input-field inputField col s10">
               <textarea
-                name="message" [(ngModel)]="message"
+                name="message"l̥
+                [(ngModel)]="message"
+                (keypress)="IsTyping()"
                 class="materialize-textarea inputBox"
               ></textarea>
             </div>

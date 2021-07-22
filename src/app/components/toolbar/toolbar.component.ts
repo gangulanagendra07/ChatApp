@@ -18,21 +18,32 @@ export class ToolbarComponent implements OnInit {
   notifications = [];
   socket: any;
   count = [];
+  chatList = [];
+  msgNumber = 0;
 
   constructor(private tokenService: TokenService, private router: Router, private userService: UsersService) {
     // this.socket = io('http://loaclhost:3000');
-   }
+  }
 
   ngOnInit() {
     this.user = this.tokenService.GetPayload();
-    const dropDownElement = document.querySelector('.dropdown-trigger');
+    const dropDownElement = document.querySelectorAll('.dropdown-trigger');
     M.Dropdown.init(dropDownElement, {
       alignment: 'right',
       hover: true,
       coverTrigger: false
     });
+
+    const dropDownElementTwo = document.querySelectorAll('.dropdown-trigger1');
+    M.Dropdown.init(dropDownElementTwo, {
+      alignment: 'right',
+      hover: true,
+      coverTrigger: false
+    });
+
+
     this.GetUser();
-      // this.socket.on('refreshPage', ()=>{
+    // this.socket.on('refreshPage', ()=>{
     //   this.GetUser();
     // });
   }
@@ -43,7 +54,10 @@ export class ToolbarComponent implements OnInit {
       const value = _.filter(this.notifications, ['read', false]);
       // console.log(value);
       this.count = value;
-    }, err =>{
+      this.chatList = data.result.chatList;
+      this.CheckIfRead(this.chatList);
+      console.log(this.msgNumber);
+    }, err => {
       if (err.error.token) {
         this.tokenService.DeleteToken();
         this.router.navigate(["/"]);
@@ -64,12 +78,35 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
+  CheckIfRead(arr) {
+    const checkArr = [];
+    for (let i = 0; i < arr.length; i++) {
+      const receiver = arr[i].msgId.message[arr[i].msgId.message.length - 1];
+      if (this.router.url !== `/chat/${receiver.sendername}`) {
+        if (receiver.isRead === false && receiver.receivername === this.user.username) {
+          checkArr.push(1);
+          this.msgNumber = _.sum(checkArr);
+        }
+
+      }
+    }
+  }
+
   GoToHome() {
     this.router.navigate(['streams']);
   }
 
   TimeForNow(time) {
     return moment(time).fromNow();
+  }
+
+  MessageDate(date) {
+    return moment(date).calendar(null, {
+      sameDay: '[Today]',
+      lastDay: '[Yesterday]',
+      lastWeek: '[DD/MM/YYYY]',
+      sameElse: '[DD/MM/YYYY]'
+    });
   }
 
 }

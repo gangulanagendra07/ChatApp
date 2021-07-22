@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { data } from 'jquery';
 import { MessageService } from 'src/app/services/message.service';
 import { TokenService } from 'src/app/services/token.service';
 import { UsersService } from 'src/app/services/users.service';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css']
 })
-export class MessageComponent implements OnInit {
+export class MessageComponent implements OnInit, AfterViewInit {
   user: any;
   receiver: string;
   message: string;
@@ -20,6 +20,9 @@ export class MessageComponent implements OnInit {
   receiverDataName: any;
   messagesArray = [];
   socket: any;
+  typingMessage;
+  typing = false;
+
 
   constructor(private tokensService: TokenService, private messageService: MessageService, private route: ActivatedRoute, private userService: UsersService) {
     // this.socket = io('http://localhost:3000');
@@ -55,6 +58,26 @@ export class MessageComponent implements OnInit {
     //   });
     // });
 
+    // this.socket.on('Is_typing', data => {
+    //   if (data.sender === this.receiver) {
+    //     this.typing = true;
+    //   }
+    // });
+
+    // this.socket.on('has_stopped_typing', data => {
+    //   if (data.sender === this.receiver) {
+    //     this.typing = true;
+    //   }
+    // });
+
+  }
+
+  ngAfterViewInit() {
+    const params = {
+      room1: this.user.username,
+      room2: this.receiver
+    };
+    // this.socket.emit('join chat', params);
   }
 
   GetMessages(senderId, receiverId) {
@@ -72,6 +95,25 @@ export class MessageComponent implements OnInit {
       });
     }
 
+  }
+
+  // Created IsTyping method to listen event whether user is tying or not.
+  IsTyping() {
+    // this.socket.emit('start_typing', {
+    //   sender: this.user.username,
+    //   receiver: this.receiver
+    // });
+
+    // if(this.typingMessage){
+    //     clearTimeout(this.typingMessage);
+    // }
+
+    // this.typingMessage = setTimeout(() => {
+    //   this.socket.emit('stop_typing', {
+    //     //   sender: this.user.username,
+    //     //   receiver: this.receiver
+    //   })
+    // }, 500)
   }
 
 }

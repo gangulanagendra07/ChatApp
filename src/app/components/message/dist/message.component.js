@@ -18,6 +18,8 @@ var MessageComponent = /** @class */ (function () {
         this.users = [];
         this.messagesArray = [];
         this.typing = false;
+        this.usersArray = [];
+        this.isOnline = false;
         // this.socket = io('http://localhost:3000');
     }
     MessageComponent.prototype.ngOnInit = function () {
@@ -35,6 +37,8 @@ var MessageComponent = /** @class */ (function () {
                 }
             });
         });
+        this.usersArray = this.childOnlineUsers;
+        console.log(this.usersArray);
         // this.socket.on('refreshPage', () => {
         //   this.userService.getAllUsers().subscribe(data => {
         //     this.users = data.result;
@@ -56,6 +60,16 @@ var MessageComponent = /** @class */ (function () {
         //     this.typing = true;
         //   }
         // });
+    };
+    MessageComponent.prototype.ngOnChanges = function (changes) {
+        // if (changes.users.currentValue.length > 0) {
+        //   const result = _.indexOf(changes.users.currentValue, this.receiver);
+        //   if (result > -1) {
+        //     this.isOnline = true;
+        //   } else {
+        //     this.isOnline = false;
+        //   }
+        // }
     };
     MessageComponent.prototype.ngAfterViewInit = function () {
         var params = {
@@ -85,17 +99,19 @@ var MessageComponent = /** @class */ (function () {
         //   sender: this.user.username,
         //   receiver: this.receiver
         // });
-        var _this = this;
-        if (this.typingMessage) {
-            clearTimeout(this.typingMessage);
-        }
-        this.typingMessage = setTimeout(function () {
-            _this.socket.emit('stop_typing', {
-            //   sender: this.user.username,
-            //   receiver: this.receiver
-            });
-        }, 500);
+        // if(this.typingMessage){
+        //     clearTimeout(this.typingMessage);
+        // }
+        // this.typingMessage = setTimeout(() => {
+        //   this.socket.emit('stop_typing', {
+        //     //   sender: this.user.username,
+        //     //   receiver: this.receiver
+        //   })
+        // }, 500)
     };
+    __decorate([
+        core_1.Input()
+    ], MessageComponent.prototype, "childOnlineUsers");
     MessageComponent = __decorate([
         core_1.Component({
             selector: 'app-message',

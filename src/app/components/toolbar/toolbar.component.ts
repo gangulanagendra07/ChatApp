@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 import * as M from 'materialize-css';
@@ -6,14 +6,16 @@ import { UsersService } from 'src/app/services/users.service';
 import * as moment from 'moment';
 import io from 'socket.io-client';
 import _ from 'lodash';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css']
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, AfterViewInit {
 
+  @Output() onlineUsers = new EventEmitter();
   user: any;
   notifications = [];
   socket: any;
@@ -21,7 +23,8 @@ export class ToolbarComponent implements OnInit {
   chatList = [];
   msgNumber = 0;
 
-  constructor(private tokenService: TokenService, private router: Router, private userService: UsersService) {
+
+  constructor(private tokenService: TokenService, private router: Router, private userService: UsersService, private messageService: MessageService) {
     // this.socket = io('http://loaclhost:3000');
   }
 
@@ -41,6 +44,8 @@ export class ToolbarComponent implements OnInit {
       coverTrigger: false
     });
 
+    // this.socket.emit('online', {room :'global', user: this.user.username});
+
 
     this.GetUser();
     // this.socket.on('refreshPage', ()=>{
@@ -48,15 +53,19 @@ export class ToolbarComponent implements OnInit {
     // });
   }
 
+  ngAfterViewInit(){
+    // this.socket.on('usersOnline', data =>{
+    //    this.onlineUsers.emit(data);
+    // })
+  }
+
   GetUser() {
     this.userService.getById(this.user._id).subscribe(data => {
       this.notifications = data.result.notifications.reverse();
       const value = _.filter(this.notifications, ['read', false]);
-      // console.log(value);
       this.count = value;
       this.chatList = data.result.chatList;
       this.CheckIfRead(this.chatList);
-      console.log(this.msgNumber);
     }, err => {
       if (err.error.token) {
         this.tokenService.DeleteToken();
@@ -76,6 +85,23 @@ export class ToolbarComponent implements OnInit {
       // this.socket.emit('refresh', {});
       // console.log(data);
     });
+  }
+
+  GoToChatPage(name) {
+    this.router.navigate(['chat', name]);
+    this.messageService.MarkMessages(this.user.username, name).subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  markAllMessages() {
+
+    this.messageService.MarkAllMessages().subscribe(data => {
+
+      // this.socket.emit('');
+      this.msgNumber = 0;
+    });
+
   }
 
   CheckIfRead(arr) {

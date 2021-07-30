@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { data } from 'jquery';
 import { MessageService } from 'src/app/services/message.service';
 import { TokenService } from 'src/app/services/token.service';
 import { UsersService } from 'src/app/services/users.service';
+import _ from 'lodash';
 // import io from 'socket.io-client';
 
 @Component({
@@ -11,7 +12,9 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css']
 })
-export class MessageComponent implements OnInit, AfterViewInit {
+export class MessageComponent implements OnInit, AfterViewInit, OnChanges {
+
+  @Input() childOnlineUsers;
   user: any;
   receiver: string;
   message: string;
@@ -22,6 +25,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
   socket: any;
   typingMessage;
   typing = false;
+  usersArray = [];
+  isOnline = false;
 
 
   constructor(private tokensService: TokenService, private messageService: MessageService, private route: ActivatedRoute, private userService: UsersService) {
@@ -46,6 +51,9 @@ export class MessageComponent implements OnInit, AfterViewInit {
       });
     });
 
+    this.usersArray = this.childOnlineUsers;
+    console.log(this.usersArray);
+
     // this.socket.on('refreshPage', () => {
     //   this.userService.getAllUsers().subscribe(data => {
     //     this.users = data.result;
@@ -69,6 +77,19 @@ export class MessageComponent implements OnInit, AfterViewInit {
     //     this.typing = true;
     //   }
     // });
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+
+    // if (changes.users.currentValue.length > 0) {
+    //   const result = _.indexOf(changes.users.currentValue, this.receiver);
+    //   if (result > -1) {
+    //     this.isOnline = true;
+    //   } else {
+    //     this.isOnline = false;
+    //   }
+    // }
 
   }
 

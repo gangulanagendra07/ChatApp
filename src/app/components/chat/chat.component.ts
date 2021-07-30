@@ -8,6 +8,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 export class ChatComponent implements OnInit, AfterViewInit {
 
   tabElement: any;
+  parentOnlineUsers = [];
 
   constructor() { }
 
@@ -17,6 +18,11 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(){
      this.tabElement.style.display = 'none';
+  }
+
+// Added below method to export the data from parent to child component
+  online(event){
+    this.parentOnlineUsers = event;
   }
 
 }

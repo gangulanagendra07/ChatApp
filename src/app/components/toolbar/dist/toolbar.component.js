@@ -12,10 +12,12 @@ var M = require("materialize-css");
 var moment = require("moment");
 var lodash_1 = require("lodash");
 var ToolbarComponent = /** @class */ (function () {
-    function ToolbarComponent(tokenService, router, userService) {
+    function ToolbarComponent(tokenService, router, userService, messageService) {
         this.tokenService = tokenService;
         this.router = router;
         this.userService = userService;
+        this.messageService = messageService;
+        this.onlineUsers = new core_1.EventEmitter();
         this.notifications = [];
         this.count = [];
         this.chatList = [];
@@ -36,21 +38,25 @@ var ToolbarComponent = /** @class */ (function () {
             hover: true,
             coverTrigger: false
         });
+        // this.socket.emit('online', {room :'global', user: this.user.username});
         this.GetUser();
         // this.socket.on('refreshPage', ()=>{
         //   this.GetUser();
         // });
+    };
+    ToolbarComponent.prototype.ngAfterViewInit = function () {
+        // this.socket.on('usersOnline', data =>{
+        //    this.onlineUsers.emit(data);
+        // })
     };
     ToolbarComponent.prototype.GetUser = function () {
         var _this = this;
         this.userService.getById(this.user._id).subscribe(function (data) {
             _this.notifications = data.result.notifications.reverse();
             var value = lodash_1["default"].filter(_this.notifications, ['read', false]);
-            // console.log(value);
             _this.count = value;
             _this.chatList = data.result.chatList;
             _this.CheckIfRead(_this.chatList);
-            console.log(_this.msgNumber);
         }, function (err) {
             if (err.error.token) {
                 _this.tokenService.DeleteToken();
@@ -67,6 +73,19 @@ var ToolbarComponent = /** @class */ (function () {
         this.userService.MarkAllAsRead().subscribe(function (data) {
             // this.socket.emit('refresh', {});
             // console.log(data);
+        });
+    };
+    ToolbarComponent.prototype.GoToChatPage = function (name) {
+        this.router.navigate(['chat', name]);
+        this.messageService.MarkMessages(this.user.username, name).subscribe(function (data) {
+            console.log(data);
+        });
+    };
+    ToolbarComponent.prototype.markAllMessages = function () {
+        var _this = this;
+        this.messageService.MarkAllMessages().subscribe(function (data) {
+            // this.socket.emit('');
+            _this.msgNumber = 0;
         });
     };
     ToolbarComponent.prototype.CheckIfRead = function (arr) {
@@ -95,6 +114,9 @@ var ToolbarComponent = /** @class */ (function () {
             sameElse: '[DD/MM/YYYY]'
         });
     };
+    __decorate([
+        core_1.Output()
+    ], ToolbarComponent.prototype, "onlineUsers");
     ToolbarComponent = __decorate([
         core_1.Component({
             selector: 'app-toolbar',

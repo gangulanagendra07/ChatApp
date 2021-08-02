@@ -62,12 +62,15 @@ var MessageComponent = /** @class */ (function () {
         // });
     };
     MessageComponent.prototype.ngOnChanges = function (changes) {
+        var title = document.querySelector('.nameCol');
         // if (changes.users.currentValue.length > 0) {
         //   const result = _.indexOf(changes.users.currentValue, this.receiver);
         //   if (result > -1) {
         //     this.isOnline = true;
+        //     (title as HTMLElement).style.marginTop = '10px';
         //   } else {
         //     this.isOnline = false;
+        //     (title as HTMLElement).style.marginTop = '20px';
         //   }
         // }
     };
